@@ -50,7 +50,7 @@ include = ["oop*"]
 
 [tool.black]
 target-version = ['py312']
-line-length = 80
+line-length = 88
 
 [tool.isort]
 profile = "black"

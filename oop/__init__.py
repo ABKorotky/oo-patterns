@@ -15,7 +15,7 @@ DESCRIPTION = (
 
 VERSION = (
     0,
-    1,
+    2,
     0,
 )
 PY_VERSION = (
