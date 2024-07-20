@@ -5,7 +5,10 @@ __all__ = (
 
 import typing as t
 
-from oop.behavioral.state.interfaces import StateContextInterface, StateInterface
+from oo_patterns.behavioral.state.interfaces import (
+    StateContextInterface,
+    StateInterface,
+)
 
 StateTypeVar = t.TypeVar("StateTypeVar", bound="BaseState")
 StateContextTypeVar = t.TypeVar("StateContextTypeVar", bound="BaseStateContext")

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-import oop as package
+import oo_patterns as package
 
 
 class PackageTestCase(TestCase):

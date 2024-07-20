@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from oop.behavioral.state import BaseState, BaseStateContext
+from oo_patterns.behavioral.state import BaseState, BaseStateContext
 
 
 class BaseTestState(BaseState["TestStateContext"]):

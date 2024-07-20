@@ -1,4 +1,4 @@
-.. automodule:: oop.behavioral.state.base
+.. automodule:: oo_patterns.behavioral.state.base
    :members:
    :undoc-members:
    :show-inheritance:

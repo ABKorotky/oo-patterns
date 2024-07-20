@@ -1,4 +1,4 @@
-"""OOP.
+"""OO Patterns.
 
 The repo contains implementations of certain programming patterns for
 Object-Oriented Programming.
@@ -6,8 +6,8 @@ Object-Oriented Programming.
 
 __all__ = ("NAME", "VERSION", "PY_VERSION", "AUTHOR", "AUTHOR_EMAIL")
 
-NAME = "oop"
-TITLE = "OOP"
+NAME = "ak-oo-patterns"
+TITLE = "OO Patterns"
 DESCRIPTION = (
     "The repo contains implementations of certain programming patterns for "
     "Object-Oriented Programming"
@@ -15,7 +15,7 @@ DESCRIPTION = (
 
 VERSION = (
     0,
-    2,
+    3,
     0,
 )
 PY_VERSION = (

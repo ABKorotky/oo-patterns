@@ -1,11 +1,11 @@
 [project]
-name = "oop"
+name = "ak-oo-patterns"
 description = "The repo contains implementations of certain programming patterns for Object-Oriented Programming"
 readme = "README.md"
 requires-python = ">=3.12"
 license = {file = "LICENSE"}
 authors = [{name = "Aliaksandr Karotki", email = "abkorotky@gmail.com"}]
-keywords = ["framework", "asyncio", "oop"]
+keywords = ["asyncio", "programming patterns"]
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Other Environment",
@@ -22,8 +22,8 @@ classifiers = [
 dynamic = ["version", "dependencies"]
 
 [project.urls]
-repository = "https://github.com/ABKorotky/oop.git"
-changelog = "https://github.com/ABKorotky/oop/blob/main/CHANGELOG.md"
+repository = "https://github.com/ABKorotky/oo-patterns.git"
+changelog = "https://github.com/ABKorotky/oo-patterns/blob/main/CHANGELOG.md"
 
 [build-system]
 requires = [
@@ -36,11 +36,11 @@ build-backend = "setuptools.build_meta"
 include-package-data = true
 
 [tool.setuptools.dynamic]
-version = {attr = "oop.VERSION"}
+version = {attr = "oo_patterns.VERSION"}
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
-include = ["oop*"]
+include = ["oo_patterns*"]
 
 [tool.setuptools.package-data]
 "*" = [
@@ -73,7 +73,7 @@ extend-ignore = [
     "E701",
 ]
 import-order-style = "pep8"
-application-import-names = ["oop"]
+application-import-names = ["oo_patterns"]
 
 [tool.mypy]
 check_untyped_defs = true
@@ -86,7 +86,7 @@ show_error_codes = true
 show_error_context = true
 
 [[tool.mypy.overrides]]
-module = "oop.tests.*"
+module = "oo_patterns.tests.*"
 disable_error_code = [
     "arg-type",
     "assignment",
@@ -95,8 +95,8 @@ disable_error_code = [
 ]
 
 [tool.coverage.run]
-omit = ["oop/tests/*"]
-source = ["oop"]
+omit = ["oo_patterns/tests/*"]
+source = ["oo_patterns"]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -104,7 +104,8 @@ exclude_lines = [
     "if t.TYPE_CHECKING:",
     "if __name__ == .__main__.:",
 ]
-omit = ["oop/tests/*"]
+omit = ["oo_patterns/tests/*"]
+fail_under = 95
 
 [tool.tox]
 legacy_tox_ini = """
@@ -117,8 +118,8 @@ deps =
     black
     isort
 commands =
-    isort oop
-    black oop
+    isort oo_patterns
+    black oo_patterns
 
 [testenv:cs]
 description = Checks code style by black, isort and flake8 tools
@@ -128,16 +129,16 @@ deps =
     flake8
     flake8-pyproject
 commands =
-    isort --check-only --diff oop
-    black --check --diff oop
-    flake8 oop
+    isort --check-only --diff oo_patterns
+    black --check --diff oo_patterns
+    flake8 oo_patterns
 
 [testenv:ann]
 description = Checks types annotations by mypy
 deps =
     mypy
 commands =
-    mypy oop
+    mypy oo_patterns
 
 [testenv:utc]
 description = Runs tests under coverage, prints a text report and builds HTML report
@@ -145,7 +146,7 @@ deps =
     --requirement requirements.txt
     coverage
 commands =
-    coverage run --module unittest discover --verbose oop/tests
+    coverage run --module unittest discover --verbose oo_patterns/tests
     coverage report
     coverage html
 
@@ -155,7 +156,7 @@ deps=
     -r {toxinidir}/requirements.txt
     sphinx
 commands=
-    sphinx-apidoc --separate --no-toc --no-headings --module-first --output-dir=docs/modules --ext-viewcode oop
+    sphinx-apidoc --separate --no-toc --no-headings --module-first --output-dir=docs/modules --ext-viewcode oo_patterns
     sphinx-build -b html docs docs/build -v
 
 [testenv:build]

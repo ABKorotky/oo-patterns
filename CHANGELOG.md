@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-07-20
+
+### Changed
+- Rename root package directory. Use `oo_patterns` for importing instead `oop`.
+- Change package PyPI name. The `ak-` prefix is added. It's `ak-oo-patterns` now instead `oop`.
+
 ## [0.2.0] - 2024-06-10
 
 ### Added

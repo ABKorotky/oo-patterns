@@ -1,7 +1,10 @@
 import typing as t
 from unittest import TestCase
 
-from oop.behavioral.state.interfaces import StateContextInterface, StateInterface
+from oo_patterns.behavioral.state.interfaces import (
+    StateContextInterface,
+    StateInterface,
+)
 
 if t.TYPE_CHECKING:
     ...

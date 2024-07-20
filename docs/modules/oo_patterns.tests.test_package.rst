@@ -1,4 +1,4 @@
-.. automodule:: oop.tests.behavioral.state.test_base
+.. automodule:: oo_patterns.tests.test_package
    :members:
    :undoc-members:
    :show-inheritance:
