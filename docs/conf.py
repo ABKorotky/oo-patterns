@@ -13,7 +13,7 @@ import typing as t
 
 sys.path.insert(0, os.path.abspath(".."))
 
-import oop as package  # noqa
+import oo_patterns as package  # noqa
 
 # -- Project information -----------------------------------------------------
 
