@@ -46,6 +46,11 @@ class EventsManager(EventsManagerInterface):
             return
         self._events_publishers_map[event.__class__].notify_subscribers(context=event)
 
+    def remove_all_subscribers(self):
+        for publisher in self._events_publishers_map.values():
+            publisher.remove_all_subscribers()
+        self._events_publishers_map.clear()
+
 
 class AsyncEventsManager(AsyncEventsManagerInterface):
 
@@ -77,3 +82,8 @@ class AsyncEventsManager(AsyncEventsManagerInterface):
         await self._events_publishers_map[event.__class__].notify_subscribers(
             context=event
         )
+
+    def remove_all_subscribers(self):
+        for publisher in self._events_publishers_map.values():
+            publisher.remove_all_subscribers()
+        self._events_publishers_map.clear()

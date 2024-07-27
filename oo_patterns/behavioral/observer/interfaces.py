@@ -25,6 +25,9 @@ class PublisherInterface(t.Generic[EventContextTypeVar]):
     def notify_subscribers(self, context: EventContextTypeVar):
         raise NotImplementedError
 
+    def remove_all_subscribers(self):
+        raise NotImplementedError
+
 
 class AsyncPublisherInterface(t.Generic[EventContextTypeVar]):
 
@@ -41,6 +44,9 @@ class AsyncPublisherInterface(t.Generic[EventContextTypeVar]):
         raise NotImplementedError
 
     async def notify_subscribers(self, context: EventContextTypeVar):
+        raise NotImplementedError
+
+    def remove_all_subscribers(self):
         raise NotImplementedError
 
 
@@ -66,6 +72,9 @@ class EventsManagerInterface:
     def notify_subscribers(self, event: EventTypeVar):
         raise NotImplementedError
 
+    def remove_all_subscribers(self):
+        raise NotImplementedError
+
 
 class AsyncEventsManagerInterface:
 
@@ -84,4 +93,7 @@ class AsyncEventsManagerInterface:
         raise NotImplementedError
 
     async def notify_subscribers(self, event: EventTypeVar):
+        raise NotImplementedError
+
+    def remove_all_subscribers(self):
         raise NotImplementedError

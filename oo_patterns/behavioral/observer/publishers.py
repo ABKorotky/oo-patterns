@@ -63,6 +63,9 @@ class Publisher(
     def handle_subscriber_error(self, context: EventContextTypeVar, error: Exception):
         pass
 
+    def remove_all_subscribers(self):
+        self._subscribers.clear()
+
 
 class AsyncPublisher(
     AsyncPublisherInterface[EventContextTypeVar], t.Generic[EventContextTypeVar]
@@ -120,3 +123,6 @@ class AsyncPublisher(
 
     def handle_subscriber_error(self, context: EventContextTypeVar, error: Exception):
         pass
+
+    def remove_all_subscribers(self):
+        self._subscribers.clear()

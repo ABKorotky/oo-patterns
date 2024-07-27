@@ -4,6 +4,7 @@ from unittest import IsolatedAsyncioTestCase, TestCase
 from unittest.mock import AsyncMock, Mock
 
 from oo_patterns.behavioral.observer import AsyncEventsManager, EventsManager
+from oo_patterns.tests.helpers import TestingMixin
 
 if t.TYPE_CHECKING:
     ...
@@ -24,13 +25,19 @@ class TestEventNotRegistered:
     f_bool: bool
 
 
-class EventsManagerTestCase(TestCase):
+EventsManagerTypeVar = t.TypeVar("EventsManagerTypeVar", bound=EventsManager)
+
+
+class EventsManagerTestCase(
+    TestingMixin[EventsManagerTypeVar], TestCase, t.Generic[EventsManagerTypeVar]
+):
+    tst_cls = EventsManager
 
     def test_main_flow(self):
         mock_subscriber_one = Mock()
         mock_subscriber_two = Mock(side_effect=Exception("Test"))
 
-        tst_obj: "EventsManager" = EventsManager()
+        tst_obj: "EventsManager" = self.build_tst_obj()
         tst_obj.add_subscriber(event_cls=TestEventOne, subscriber=mock_subscriber_one)
         tst_obj.add_subscriber(event_cls=TestEventTwo, subscriber=mock_subscriber_two)
 
@@ -72,14 +79,27 @@ class EventsManagerTestCase(TestCase):
         mock_subscriber_one.reset_mock()
         mock_subscriber_two.reset_mock()
 
+        tst_obj.remove_all_subscribers()
 
-class AsyncEventsManagerTestCase(IsolatedAsyncioTestCase):
+
+AsyncEventsManagerTypeVar = t.TypeVar(
+    "AsyncEventsManagerTypeVar", bound=AsyncEventsManager
+)
+
+
+class AsyncEventsManagerTestCase(
+    TestingMixin[AsyncEventsManagerTypeVar],
+    IsolatedAsyncioTestCase,
+    t.Generic[AsyncEventsManagerTypeVar],
+):
+
+    tst_cls = AsyncEventsManager
 
     async def test_main_flow(self):
         mock_subscriber_one = AsyncMock()
         mock_subscriber_two = AsyncMock(side_effect=Exception("Test"))
 
-        tst_obj: "AsyncEventsManager" = AsyncEventsManager()
+        tst_obj: "AsyncEventsManager" = self.build_tst_obj()
         tst_obj.add_subscriber(event_cls=TestEventOne, subscriber=mock_subscriber_one)
         tst_obj.add_subscriber(event_cls=TestEventTwo, subscriber=mock_subscriber_two)
 
@@ -120,3 +140,5 @@ class AsyncEventsManagerTestCase(IsolatedAsyncioTestCase):
         mock_subscriber_two.assert_not_awaited()
         mock_subscriber_one.reset_mock()
         mock_subscriber_two.reset_mock()
+
+        tst_obj.remove_all_subscribers()
