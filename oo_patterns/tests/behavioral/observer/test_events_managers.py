@@ -35,26 +35,30 @@ class EventsManagerTestCase(
 
     def test_main_flow(self):
         mock_subscriber_one = Mock()
-        mock_subscriber_two = Mock(side_effect=Exception("Test"))
+        tst_error = Exception("Test")
+        mock_subscriber_two = Mock(side_effect=tst_error)
 
         tst_obj: "EventsManager" = self.build_tst_obj()
         tst_obj.add_subscriber(event_cls=TestEventOne, subscriber=mock_subscriber_one)
         tst_obj.add_subscriber(event_cls=TestEventTwo, subscriber=mock_subscriber_two)
 
         test_event_one = TestEventOne(f_int=12)
-        tst_obj.notify_subscribers(event=test_event_one)
+        tst_res = tst_obj.notify_subscribers(event=test_event_one)
+        assert tst_res == []
         mock_subscriber_one.assert_called_once_with(test_event_one)
         mock_subscriber_two.assert_not_called()
         mock_subscriber_one.reset_mock()
 
         test_event_two = TestEventTwo(f_str="test")
-        tst_obj.notify_subscribers(event=test_event_two)
+        tst_res = tst_obj.notify_subscribers(event=test_event_two)
+        assert tst_res == [tst_error]
         mock_subscriber_one.assert_not_called()
         mock_subscriber_two.assert_called_once_with(test_event_two)
         mock_subscriber_two.reset_mock()
 
         test_event_not_registered = TestEventNotRegistered(f_bool=True)
-        tst_obj.notify_subscribers(event=test_event_not_registered)
+        tst_res = tst_obj.notify_subscribers(event=test_event_not_registered)
+        assert tst_res == []
         mock_subscriber_one.assert_not_called()
         mock_subscriber_two.assert_not_called()
         mock_subscriber_one.reset_mock()
@@ -72,8 +76,10 @@ class EventsManagerTestCase(
             event_cls=TestEventNotRegistered, subscriber=mock_subscriber_not_registered
         )
 
-        tst_obj.notify_subscribers(event=test_event_one)
-        tst_obj.notify_subscribers(event=test_event_two)
+        tst_res = tst_obj.notify_subscribers(event=test_event_one)
+        assert tst_res == []
+        tst_res = tst_obj.notify_subscribers(event=test_event_two)
+        assert tst_res == []
         mock_subscriber_one.assert_not_called()
         mock_subscriber_two.assert_not_called()
         mock_subscriber_one.reset_mock()
@@ -97,26 +103,30 @@ class AsyncEventsManagerTestCase(
 
     async def test_main_flow(self):
         mock_subscriber_one = AsyncMock()
-        mock_subscriber_two = AsyncMock(side_effect=Exception("Test"))
+        tst_error = Exception("Test")
+        mock_subscriber_two = AsyncMock(side_effect=tst_error)
 
         tst_obj: "AsyncEventsManager" = self.build_tst_obj()
         tst_obj.add_subscriber(event_cls=TestEventOne, subscriber=mock_subscriber_one)
         tst_obj.add_subscriber(event_cls=TestEventTwo, subscriber=mock_subscriber_two)
 
         test_event_one = TestEventOne(f_int=12)
-        await tst_obj.notify_subscribers(event=test_event_one)
+        tst_res = await tst_obj.notify_subscribers(event=test_event_one)
+        assert tst_res == []
         mock_subscriber_one.assert_awaited_once_with(test_event_one)
         mock_subscriber_two.assert_not_awaited()
         mock_subscriber_one.reset_mock()
 
         test_event_two = TestEventTwo(f_str="test")
-        await tst_obj.notify_subscribers(event=test_event_two)
+        tst_res = await tst_obj.notify_subscribers(event=test_event_two)
+        assert tst_res == [tst_error]
         mock_subscriber_one.assert_not_awaited()
         mock_subscriber_two.assert_awaited_once_with(test_event_two)
         mock_subscriber_two.reset_mock()
 
         test_event_not_registered = TestEventNotRegistered(f_bool=True)
-        await tst_obj.notify_subscribers(event=test_event_not_registered)
+        tst_res = await tst_obj.notify_subscribers(event=test_event_not_registered)
+        assert tst_res == []
         mock_subscriber_one.assert_not_awaited()
         mock_subscriber_two.assert_not_awaited()
         mock_subscriber_one.reset_mock()
@@ -134,8 +144,10 @@ class AsyncEventsManagerTestCase(
             event_cls=TestEventNotRegistered, subscriber=mock_subscriber_not_registered
         )
 
-        await tst_obj.notify_subscribers(event=test_event_one)
-        await tst_obj.notify_subscribers(event=test_event_two)
+        tst_res = await tst_obj.notify_subscribers(event=test_event_one)
+        assert tst_res == []
+        tst_res = await tst_obj.notify_subscribers(event=test_event_two)
+        assert tst_res == []
         mock_subscriber_one.assert_not_awaited()
         mock_subscriber_two.assert_not_awaited()
         mock_subscriber_one.reset_mock()

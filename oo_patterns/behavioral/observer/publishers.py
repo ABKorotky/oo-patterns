@@ -42,7 +42,8 @@ class Publisher(
             else:
                 logger.debug("Publisher: %r. Subscriber is removed: %r.", self, s)
 
-    def notify_subscribers(self, context: EventContextTypeVar):
+    def notify_subscribers(self, context: EventContextTypeVar) -> list[Exception]:
+        errors = []
         for s in self._subscribers:
             try:
                 s(context)
@@ -54,14 +55,12 @@ class Publisher(
                     s,
                     err,
                 )
-                self.handle_subscriber_error(context=context, error=err)
+                errors.append(err)
             else:
                 logger.debug(
                     "Publisher: %r. Context: %r. Subscriber: %r. OK.", self, context, s
                 )
-
-    def handle_subscriber_error(self, context: EventContextTypeVar, error: Exception):
-        pass
+        return errors
 
     def remove_all_subscribers(self):
         self._subscribers.clear()
@@ -99,13 +98,14 @@ class AsyncPublisher(
             else:
                 logger.debug("Publisher: %r. Subscriber is removed: %r.", self, s)
 
-    async def notify_subscribers(self, context: EventContextTypeVar):
+    async def notify_subscribers(self, context: EventContextTypeVar) -> list[Exception]:
         subscribers, coros = [], []
         for s in self._subscribers:
             subscribers.append(s)
             coros.append(s(context))
 
         results = await asyncio.gather(*coros, return_exceptions=True)
+        errors = []
         for s, result in zip(subscribers, results):
             if isinstance(result, Exception):
                 logger.error(
@@ -115,14 +115,13 @@ class AsyncPublisher(
                     s,
                     result,
                 )
-                self.handle_subscriber_error(context=context, error=result)
+                errors.append(result)
             else:
                 logger.debug(
                     "Publisher: %r. Context: %r. Subscriber: %r. OK.", self, context, s
                 )
 
-    def handle_subscriber_error(self, context: EventContextTypeVar, error: Exception):
-        pass
+        return errors
 
     def remove_all_subscribers(self):
         self._subscribers.clear()

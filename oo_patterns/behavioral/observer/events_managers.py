@@ -41,10 +41,12 @@ class EventsManager(EventsManagerInterface):
 
         self._events_publishers_map[event_cls].remove_subscribers(subscriber)
 
-    def notify_subscribers(self, event: EventTypeVar):
+    def notify_subscribers(self, event: EventTypeVar) -> list[Exception]:
         if event.__class__ not in self._events_publishers_map:
-            return
-        self._events_publishers_map[event.__class__].notify_subscribers(context=event)
+            return []
+        return self._events_publishers_map[event.__class__].notify_subscribers(
+            context=event
+        )
 
     def remove_all_subscribers(self):
         for publisher in self._events_publishers_map.values():
@@ -76,10 +78,10 @@ class AsyncEventsManager(AsyncEventsManagerInterface):
 
         self._events_publishers_map[event_cls].remove_subscribers(subscriber)
 
-    async def notify_subscribers(self, event: EventTypeVar):
+    async def notify_subscribers(self, event: EventTypeVar) -> list[Exception]:
         if event.__class__ not in self._events_publishers_map:
-            return
-        await self._events_publishers_map[event.__class__].notify_subscribers(
+            return []
+        return await self._events_publishers_map[event.__class__].notify_subscribers(
             context=event
         )
 

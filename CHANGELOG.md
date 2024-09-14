@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2024-09-14
+
+### Added
+- Implement `BaseSubSpacePublisher`/`BaseAsyncSubSpacePublisher` with supporting subscribing on events sub-spaces. See `oo_patterns/behavioral/observer/sub_space_publishers.py` file for details.
+
+### Changed
+- Implement returning errors from `notify_subscribers` of `Observer` classes. See `oo_patterns/behavioral/observer/` directory for details.
+
+### Deleted
+- Methods `handle_subscriber_error` are deleted from `Observer` classes. See `oo_patterns/behavioral/observer/` directory for details.
+
 ## [0.5.0] - 2024-07-27
 
 ### Added

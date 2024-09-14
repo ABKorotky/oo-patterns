@@ -24,7 +24,8 @@ class PublisherTestCase(
 
     def test_main_flow(self):
         mock_subscriber_one = Mock()
-        mock_subscriber_two = Mock(side_effect=Exception("Test"))
+        tst_error = Exception("Test")
+        mock_subscriber_two = Mock(side_effect=tst_error)
 
         tst_obj = self.build_tst_obj()
         tst_obj.add_subscribers(mock_subscriber_one, mock_subscriber_two)
@@ -32,14 +33,16 @@ class PublisherTestCase(
 
         mock_event_context_one = Mock()
 
-        tst_obj.notify_subscribers(context=mock_event_context_one)
+        tst_res = tst_obj.notify_subscribers(context=mock_event_context_one)
+        assert tst_res == [tst_error]
         mock_subscriber_one.assert_called_once_with(mock_event_context_one)
         mock_subscriber_two.assert_called_once_with(mock_event_context_one)
         mock_subscriber_one.reset_mock()
         mock_subscriber_two.reset_mock()
 
         mock_event_context_two = Mock()
-        tst_obj.notify_subscribers(context=mock_event_context_two)
+        tst_res = tst_obj.notify_subscribers(context=mock_event_context_two)
+        assert tst_res == [tst_error]
         mock_subscriber_one.assert_called_once_with(mock_event_context_two)
         mock_subscriber_two.assert_called_once_with(mock_event_context_two)
         mock_subscriber_one.reset_mock()
@@ -50,7 +53,8 @@ class PublisherTestCase(
         mock_subscriber_not_registered = Mock()
         tst_obj.remove_subscribers(mock_subscriber_not_registered)
 
-        tst_obj.notify_subscribers(context=Mock())
+        tst_res = tst_obj.notify_subscribers(context=Mock())
+        assert tst_res == []
         mock_subscriber_one.assert_not_called()
         mock_subscriber_two.assert_not_called()
 
@@ -69,7 +73,8 @@ class AsyncPublisherTestCase(
 
     async def test_main_flow(self):
         mock_subscriber_one = AsyncMock()
-        mock_subscriber_two = AsyncMock(side_effect=Exception("Test"))
+        tst_error = Exception("Test")
+        mock_subscriber_two = AsyncMock(side_effect=tst_error)
 
         tst_obj = self.build_tst_obj()
         tst_obj.add_subscribers(mock_subscriber_one, mock_subscriber_two)
@@ -77,14 +82,16 @@ class AsyncPublisherTestCase(
 
         mock_event_context_one = Mock()
 
-        await tst_obj.notify_subscribers(context=mock_event_context_one)
+        tst_res = await tst_obj.notify_subscribers(context=mock_event_context_one)
+        assert tst_res == [tst_error]
         mock_subscriber_one.assert_awaited_once_with(mock_event_context_one)
         mock_subscriber_two.assert_awaited_once_with(mock_event_context_one)
         mock_subscriber_one.reset_mock()
         mock_subscriber_two.reset_mock()
 
         mock_event_context_two = Mock()
-        await tst_obj.notify_subscribers(context=mock_event_context_two)
+        tst_res = await tst_obj.notify_subscribers(context=mock_event_context_two)
+        assert tst_res == [tst_error]
         mock_subscriber_one.assert_awaited_once_with(mock_event_context_two)
         mock_subscriber_two.assert_awaited_once_with(mock_event_context_two)
         mock_subscriber_one.reset_mock()
@@ -95,7 +102,8 @@ class AsyncPublisherTestCase(
         mock_subscriber_not_registered = AsyncMock()
         tst_obj.remove_subscribers(mock_subscriber_not_registered)
 
-        await tst_obj.notify_subscribers(context=Mock())
+        tst_res = await tst_obj.notify_subscribers(context=Mock())
+        assert tst_res == []
         mock_subscriber_one.assert_not_awaited()
         mock_subscriber_two.assert_not_awaited()
 

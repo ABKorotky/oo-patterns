@@ -5,8 +5,10 @@ from unittest.mock import Mock
 from oo_patterns.behavioral.observer.interfaces import (
     AsyncEventsManagerInterface,
     AsyncPublisherInterface,
+    AsyncSubSpacePublisherInterface,
     EventsManagerInterface,
     PublisherInterface,
+    SubSpacePublisherInterface,
 )
 
 if t.TYPE_CHECKING:
@@ -61,6 +63,74 @@ class AsyncPublisherInterfaceTestCase(IsolatedAsyncioTestCase):
 
         with self.assertRaises(NotImplementedError):
             await tst_obj.notify_subscribers(context=Mock())
+
+    def test_remove_all_subscribers(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.remove_all_subscribers()
+
+
+class SubSpacePublisherInterfaceTestCase(TestCase):
+    tst_cls: type["SubSpacePublisherInterface"] = SubSpacePublisherInterface
+
+    def test_add_subscribers(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.add_subscribers(Mock(), Mock(), sub_space=Mock())
+
+    def test_remove_subscribers(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.remove_subscribers(Mock(), Mock(), sub_space=Mock())
+
+    def test_notify_subscribers(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.notify_subscribers(context=Mock())
+
+    def test_get_event_context_sub_space(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.get_event_context_sub_space(context=Mock())
+
+    def test_remove_all_subscribers(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.remove_all_subscribers()
+
+
+class AsyncSubSpacePublisherInterfaceTestCase(IsolatedAsyncioTestCase):
+    tst_cls: type["AsyncSubSpacePublisherInterface"] = AsyncSubSpacePublisherInterface
+
+    def test_add_subscribers(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.add_subscribers(Mock(), Mock(), sub_space=Mock())
+
+    def test_remove_subscribers(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.remove_subscribers(Mock(), Mock(), sub_space=Mock())
+
+    async def test_notify_subscribers(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            await tst_obj.notify_subscribers(context=Mock())
+
+    def test_get_event_context_sub_space(self):
+        tst_obj = self.tst_cls()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.get_event_context_sub_space(context=Mock())
 
     def test_remove_all_subscribers(self):
         tst_obj = self.tst_cls()
