@@ -35,3 +35,4 @@ class BaseStateContext(StateContextInterface[StateTypeVar], t.Generic[StateTypeV
     def set_state(self, state: StateTypeVar):
         self._state = state
         state.set_context(context=self)
+        state.init_state()

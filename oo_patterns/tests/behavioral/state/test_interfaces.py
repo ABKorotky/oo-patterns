@@ -18,6 +18,12 @@ class StateInterfaceTestCase(TestCase):
         with self.assertRaises(NotImplementedError):
             tst_obj.set_context(context=StateContextInterface())
 
+    def test_init_state(self):
+        tst_obj: "StateInterface" = StateInterface()
+
+        with self.assertRaises(NotImplementedError):
+            tst_obj.init_state()
+
 
 class StateContextInterfaceTestCase(TestCase):
 

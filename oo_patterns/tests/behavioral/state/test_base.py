@@ -5,6 +5,8 @@ from oo_patterns.behavioral.state import BaseState, BaseStateContext
 
 class BaseTestState(BaseState["TestStateContext"]):
 
+    def init_state(self): ...
+
     def transition_to_first(self):
         raise NotImplementedError
 
