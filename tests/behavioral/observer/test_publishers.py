@@ -7,8 +7,11 @@ import typing as t
 from unittest import IsolatedAsyncioTestCase, TestCase
 from unittest.mock import AsyncMock, Mock
 
-from oo_patterns.behavioral.observer.publishers import AsyncPublisher, Publisher
-from oo_patterns.tests.helpers import TestingMixin
+from oo_patterns.behavioral.observer.publishers import (
+    AsyncPublisher,
+    Publisher,
+)
+from tests.helpers import TestingMixin
 
 if t.TYPE_CHECKING:
     ...
@@ -82,7 +85,9 @@ class AsyncPublisherTestCase(
 
         mock_event_context_one = Mock()
 
-        tst_res = await tst_obj.notify_subscribers(context=mock_event_context_one)
+        tst_res = await tst_obj.notify_subscribers(
+            context=mock_event_context_one
+        )
         assert tst_res == [tst_error]
         mock_subscriber_one.assert_awaited_once_with(mock_event_context_one)
         mock_subscriber_two.assert_awaited_once_with(mock_event_context_one)
@@ -90,7 +95,9 @@ class AsyncPublisherTestCase(
         mock_subscriber_two.reset_mock()
 
         mock_event_context_two = Mock()
-        tst_res = await tst_obj.notify_subscribers(context=mock_event_context_two)
+        tst_res = await tst_obj.notify_subscribers(
+            context=mock_event_context_two
+        )
         assert tst_res == [tst_error]
         mock_subscriber_one.assert_awaited_once_with(mock_event_context_two)
         mock_subscriber_two.assert_awaited_once_with(mock_event_context_two)

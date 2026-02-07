@@ -4,7 +4,7 @@ from unittest import IsolatedAsyncioTestCase, TestCase
 from unittest.mock import AsyncMock, Mock
 
 from oo_patterns.behavioral.observer import AsyncEventsManager, EventsManager
-from oo_patterns.tests.helpers import TestingMixin
+from tests.helpers import TestingMixin
 
 if t.TYPE_CHECKING:
     ...
@@ -29,7 +29,9 @@ EventsManagerTypeVar = t.TypeVar("EventsManagerTypeVar", bound=EventsManager)
 
 
 class EventsManagerTestCase(
-    TestingMixin[EventsManagerTypeVar], TestCase, t.Generic[EventsManagerTypeVar]
+    TestingMixin[EventsManagerTypeVar],
+    TestCase,
+    t.Generic[EventsManagerTypeVar],
 ):
     tst_cls = EventsManager
 
@@ -39,8 +41,12 @@ class EventsManagerTestCase(
         mock_subscriber_two = Mock(side_effect=tst_error)
 
         tst_obj: "EventsManager" = self.build_tst_obj()
-        tst_obj.add_subscriber(event_cls=TestEventOne, subscriber=mock_subscriber_one)
-        tst_obj.add_subscriber(event_cls=TestEventTwo, subscriber=mock_subscriber_two)
+        tst_obj.add_subscriber(
+            event_cls=TestEventOne, subscriber=mock_subscriber_one
+        )
+        tst_obj.add_subscriber(
+            event_cls=TestEventTwo, subscriber=mock_subscriber_two
+        )
 
         test_event_one = TestEventOne(f_int=12)
         tst_res = tst_obj.notify_subscribers(event=test_event_one)
@@ -73,7 +79,8 @@ class EventsManagerTestCase(
 
         mock_subscriber_not_registered = Mock()
         tst_obj.remove_subscriber(
-            event_cls=TestEventNotRegistered, subscriber=mock_subscriber_not_registered
+            event_cls=TestEventNotRegistered,
+            subscriber=mock_subscriber_not_registered,
         )
 
         tst_res = tst_obj.notify_subscribers(event=test_event_one)
@@ -107,8 +114,12 @@ class AsyncEventsManagerTestCase(
         mock_subscriber_two = AsyncMock(side_effect=tst_error)
 
         tst_obj: "AsyncEventsManager" = self.build_tst_obj()
-        tst_obj.add_subscriber(event_cls=TestEventOne, subscriber=mock_subscriber_one)
-        tst_obj.add_subscriber(event_cls=TestEventTwo, subscriber=mock_subscriber_two)
+        tst_obj.add_subscriber(
+            event_cls=TestEventOne, subscriber=mock_subscriber_one
+        )
+        tst_obj.add_subscriber(
+            event_cls=TestEventTwo, subscriber=mock_subscriber_two
+        )
 
         test_event_one = TestEventOne(f_int=12)
         tst_res = await tst_obj.notify_subscribers(event=test_event_one)
@@ -125,7 +136,9 @@ class AsyncEventsManagerTestCase(
         mock_subscriber_two.reset_mock()
 
         test_event_not_registered = TestEventNotRegistered(f_bool=True)
-        tst_res = await tst_obj.notify_subscribers(event=test_event_not_registered)
+        tst_res = await tst_obj.notify_subscribers(
+            event=test_event_not_registered
+        )
         assert tst_res == []
         mock_subscriber_one.assert_not_awaited()
         mock_subscriber_two.assert_not_awaited()
@@ -141,7 +154,8 @@ class AsyncEventsManagerTestCase(
 
         mock_subscriber_not_registered = Mock()
         tst_obj.remove_subscriber(
-            event_cls=TestEventNotRegistered, subscriber=mock_subscriber_not_registered
+            event_cls=TestEventNotRegistered,
+            subscriber=mock_subscriber_not_registered,
         )
 
         tst_res = await tst_obj.notify_subscribers(event=test_event_one)

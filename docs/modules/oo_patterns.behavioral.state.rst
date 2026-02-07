@@ -3,8 +3,8 @@ oo\_patterns.behavioral.state package
 
 .. automodule:: oo_patterns.behavioral.state
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Submodules
 ----------

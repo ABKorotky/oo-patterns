@@ -5,7 +5,7 @@ __all__ = (
 
 import typing as t
 
-from oo_patterns.behavioral.state.interfaces import (
+from .interfaces import (
     StateContextInterface,
     StateInterface,
 )
@@ -14,7 +14,9 @@ StateTypeVar = t.TypeVar("StateTypeVar", bound="BaseState")
 StateContextTypeVar = t.TypeVar("StateContextTypeVar", bound="BaseStateContext")
 
 
-class BaseState(StateInterface[StateContextTypeVar], t.Generic[StateContextTypeVar]):
+class BaseState(
+    StateInterface[StateContextTypeVar], t.Generic[StateContextTypeVar]
+):
     _context: StateContextTypeVar
 
     @property
@@ -25,7 +27,9 @@ class BaseState(StateInterface[StateContextTypeVar], t.Generic[StateContextTypeV
         self._context = context
 
 
-class BaseStateContext(StateContextInterface[StateTypeVar], t.Generic[StateTypeVar]):
+class BaseStateContext(
+    StateContextInterface[StateTypeVar], t.Generic[StateTypeVar]
+):
     _state: StateTypeVar
 
     @property
@@ -34,5 +38,4 @@ class BaseStateContext(StateContextInterface[StateTypeVar], t.Generic[StateTypeV
 
     def set_state(self, state: StateTypeVar):
         self._state = state
-        state.set_context(context=self)
-        state.init_state()
+        state.set_context(context=self.proxy)

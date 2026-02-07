@@ -1,22 +1,22 @@
 [project]
 name = "ak-oo-patterns"
-description = "The repo contains implementations of certain programming patterns for Object-Oriented Programming"
+description = "Provides generic functionality for supporting different Programming Patterns in Python projects"
 readme = "README.md"
-requires-python = ">=3.12"
-license = {file = "LICENSE"}
-authors = [{name = "Aliaksandr Karotki", email = "abkorotky@gmail.com"}]
-keywords = ["asyncio", "programming patterns"]
+requires-python = ">=3.13"
+license = "Apache-2.0"
+license-files = ["LICEN[CS]E*", "AUTHORS.md"]
+authors = [{name = "Aliaksandr Karotki", email = "abkorotky@gamil.com"}]
+keywords = ["asyncio", "oo-patterns"]
 classifiers = [
     "Development Status :: 1 - Planning",
     "Environment :: Other Environment",
     "Framework :: AsyncIO",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
     "Natural Language :: English",
     "Operating System :: POSIX",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Internet",
 ]
 dynamic = ["version", "dependencies"]
@@ -49,29 +49,18 @@ include = ["oo_patterns*"]
 ]
 
 [tool.black]
-target-version = ['py312']
-line-length = 88
+target-version = ['py313']
+line-length = 80
 
 [tool.isort]
 profile = "black"
-py_version=312
-skip = [
-    ".git",
-    ".tox",
-    ".venv",
-]
+py_version=313
+skip = [".git", ".tox", ".venv"]
 
 [tool.flake8]
-exclude = [
-    ".git",
-    ".tox",
-    ".venv",
-]
+exclude = [".git", ".tox", ".venv"]
 max-line-length = 88
-extend-ignore = [
-    "E203",
-    "E701",
-]
+extend-ignore = ["E203", "E701"]
 import-order-style = "pep8"
 application-import-names = ["oo_patterns"]
 
@@ -81,12 +70,12 @@ exclude = "/(.venv)"
 files = "**/*.py"
 follow_imports = "silent"
 ignore_missing_imports = true
-python_version = "3.12"
+python_version = "3.13"
 show_error_codes = true
 show_error_context = true
 
 [[tool.mypy.overrides]]
-module = "oo_patterns.tests.*"
+module = "tests.*"
 disable_error_code = [
     "arg-type",
     "assignment",
@@ -95,7 +84,7 @@ disable_error_code = [
 ]
 
 [tool.coverage.run]
-omit = ["oo_patterns/tests/*"]
+omit = ["tests/*"]
 source = ["oo_patterns"]
 
 [tool.coverage.report]
@@ -104,80 +93,5 @@ exclude_lines = [
     "if t.TYPE_CHECKING:",
     "if __name__ == .__main__.:",
 ]
-omit = ["oo_patterns/tests/*"]
 fail_under = 95
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-envlist = cs,ann,utc
-
-[testenv:format]
-description = Formats code by black and isort tools
-deps =
-    black
-    isort
-commands =
-    isort oo_patterns
-    black oo_patterns
-
-[testenv:cs]
-description = Checks code style by black, isort and flake8 tools
-deps =
-    black
-    isort
-    flake8
-    flake8-pyproject
-commands =
-    isort --check-only --diff oo_patterns
-    black --check --diff oo_patterns
-    flake8 oo_patterns
-
-[testenv:ann]
-description = Checks types annotations by mypy
-deps =
-    mypy
-commands =
-    mypy oo_patterns
-
-[testenv:utc]
-description = Runs tests under coverage, prints a text report and builds HTML report
-deps =
-    --requirement requirements.txt
-    coverage
-commands =
-    coverage run --module unittest discover --verbose oo_patterns/tests
-    coverage report
-    coverage html
-
-[testenv:doc]
-description = Generates documentation using sphinx tool
-deps=
-    -r {toxinidir}/requirements.txt
-    sphinx
-commands=
-    sphinx-apidoc --separate --no-toc --no-headings --module-first --output-dir=docs/modules --ext-viewcode oo_patterns
-    sphinx-build -b html docs docs/build -v
-
-[testenv:build]
-description = Builds PIP package using build tool
-deps=
-    build
-commands=
-    python -m build --sdist
-
-
-[testenv:upload]
-description = Uploads generated PIP package to PyPI index
-deps=
-    twine
-passenv =
-    PYPI_REPOSITORY_ALIAS
-    PYPI_REPOSITORY_USERNAME
-    PYPI_REPOSITORY_PASSWORD
-setenv =
-    PYPI_REPOSITORY_ALIAS = {env:PYPI_REPOSITORY_ALIAS:testpypi}
-    PYPI_REPOSITORY_USERNAME = {env:PYPI_REPOSITORY_USERNAME:__token__}
-commands=
-    twine upload --repository={env:PYPI_REPOSITORY_ALIAS} --username={env:PYPI_REPOSITORY_USERNAME} --password={env:PYPI_REPOSITORY_PASSWORD} {posargs}
-"""
+omit = ["tests/*"]

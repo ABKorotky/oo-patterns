@@ -22,7 +22,9 @@ EventTypeVar = t.TypeVar("EventTypeVar")
 class EventsManager(EventsManagerInterface):
 
     def __init__(self):
-        self._events_publishers_map: dict[type, "Publisher"] = defaultdict(Publisher)
+        self._events_publishers_map: dict[type, "Publisher"] = defaultdict(
+            Publisher
+        )
 
     def add_subscriber(
         self,
@@ -81,9 +83,9 @@ class AsyncEventsManager(AsyncEventsManagerInterface):
     async def notify_subscribers(self, event: EventTypeVar) -> list[Exception]:
         if event.__class__ not in self._events_publishers_map:
             return []
-        return await self._events_publishers_map[event.__class__].notify_subscribers(
-            context=event
-        )
+        return await self._events_publishers_map[
+            event.__class__
+        ].notify_subscribers(context=event)
 
     def remove_all_subscribers(self):
         for publisher in self._events_publishers_map.values():

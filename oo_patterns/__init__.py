@@ -1,7 +1,7 @@
 """OO Patterns.
 
-The repo contains implementations of certain programming patterns for
-Object-Oriented Programming.
+Provides generic functionality for supporting different Programming Patterns
+ in Python projects.
 """
 
 __all__ = ("NAME", "VERSION", "PY_VERSION", "AUTHOR", "AUTHOR_EMAIL")
@@ -9,19 +9,19 @@ __all__ = ("NAME", "VERSION", "PY_VERSION", "AUTHOR", "AUTHOR_EMAIL")
 NAME = "ak-oo-patterns"
 TITLE = "OO Patterns"
 DESCRIPTION = (
-    "The repo contains implementations of certain programming patterns for "
-    "Object-Oriented Programming"
+    "Provides generic functionality for supporting different Programming Patterns"
+    " in Python projects"
 )
 
 VERSION = (
     0,
-    7,
+    9,
     0,
 )
 PY_VERSION = (
     3,
-    12,
+    13,
 )
 
 AUTHOR = "Aliaksandr Karotki"
-AUTHOR_EMAIL = "abkorotky@gmail.com"
+AUTHOR_EMAIL = "abkorotky@gamil.com"

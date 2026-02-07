@@ -1,7 +1,7 @@
-Welcome to OOP documentation!
+Welcome to OO Patters documentation!
 ================================
 
-The repo contains implementations of certain programming patterns for Object-Oriented Programming
+Provides generic functionality for supporting different Programming Patterns in Python projects
 
 .. toctree::
    :maxdepth: 1

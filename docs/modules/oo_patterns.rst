@@ -3,8 +3,8 @@ oo\_patterns package
 
 .. automodule:: oo_patterns
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Subpackages
 -----------
@@ -13,4 +13,3 @@ Subpackages
    :maxdepth: 4
 
    oo_patterns.behavioral
-   oo_patterns.tests

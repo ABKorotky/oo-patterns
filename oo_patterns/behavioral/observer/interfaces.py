@@ -21,10 +21,14 @@ class PublisherInterface(t.Generic[EventContextTypeVar]):
     def add_subscribers(self, *args: "t.Callable[[EventContextTypeVar], None]"):
         raise NotImplementedError(f"{self.__class__}.add_subscribers")
 
-    def remove_subscribers(self, *args: "t.Callable[[EventContextTypeVar], None]"):
+    def remove_subscribers(
+        self, *args: "t.Callable[[EventContextTypeVar], None]"
+    ):
         raise NotImplementedError(f"{self.__class__}.remove_subscribers")
 
-    def notify_subscribers(self, context: EventContextTypeVar) -> list[Exception]:
+    def notify_subscribers(
+        self, context: EventContextTypeVar
+    ) -> list[Exception]:
         raise NotImplementedError(f"{self.__class__}.notify_subscribers")
 
     def remove_all_subscribers(self):
@@ -45,7 +49,9 @@ class AsyncPublisherInterface(t.Generic[EventContextTypeVar]):
     ):
         raise NotImplementedError(f"{self.__class__}.remove_subscribers")
 
-    async def notify_subscribers(self, context: EventContextTypeVar) -> list[Exception]:
+    async def notify_subscribers(
+        self, context: EventContextTypeVar
+    ) -> list[Exception]:
         raise NotImplementedError(f"{self.__class__}.notify_subscribers")
 
     def remove_all_subscribers(self):
@@ -64,11 +70,17 @@ class SubSpacePublisherInterface(t.Generic[EventContextTypeVar]):
     ):
         raise NotImplementedError(f"{self.__class__}.remove_subscribers")
 
-    def notify_subscribers(self, context: EventContextTypeVar) -> list[Exception]:
+    def notify_subscribers(
+        self, context: EventContextTypeVar
+    ) -> list[Exception]:
         raise NotImplementedError(f"{self.__class__}.notify_subscribers")
 
-    def get_event_context_sub_space(self, context: EventContextTypeVar) -> t.Any:
-        raise NotImplementedError(f"{self.__class__}.get_event_context_sub_space")
+    def get_event_context_sub_space(
+        self, context: EventContextTypeVar
+    ) -> t.Any:
+        raise NotImplementedError(
+            f"{self.__class__}.get_event_context_sub_space"
+        )
 
     def remove_all_subscribers(self):
         raise NotImplementedError(f"{self.__class__}.remove_all_subscribers")
@@ -90,11 +102,17 @@ class AsyncSubSpacePublisherInterface(t.Generic[EventContextTypeVar]):
     ):
         raise NotImplementedError(f"{self.__class__}.remove_subscribers")
 
-    async def notify_subscribers(self, context: EventContextTypeVar) -> list[Exception]:
+    async def notify_subscribers(
+        self, context: EventContextTypeVar
+    ) -> list[Exception]:
         raise NotImplementedError(f"{self.__class__}.notify_subscribers")
 
-    def get_event_context_sub_space(self, context: EventContextTypeVar) -> t.Any:
-        raise NotImplementedError(f"{self.__class__}.get_event_context_sub_space")
+    def get_event_context_sub_space(
+        self, context: EventContextTypeVar
+    ) -> t.Any:
+        raise NotImplementedError(
+            f"{self.__class__}.get_event_context_sub_space"
+        )
 
     def remove_all_subscribers(self):
         raise NotImplementedError(f"{self.__class__}.remove_all_subscribers")

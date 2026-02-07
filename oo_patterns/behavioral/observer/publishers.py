@@ -33,16 +33,22 @@ class Publisher(
             self._subscribers.add(s)
             logger.debug("Publisher: %r. Subscriber is added: %r.", self, s)
 
-    def remove_subscribers(self, *args: "t.Callable[[EventContextTypeVar], None]"):
+    def remove_subscribers(
+        self, *args: "t.Callable[[EventContextTypeVar], None]"
+    ):
         for s in args:
             try:
                 self._subscribers.remove(s)
             except KeyError:
                 pass
             else:
-                logger.debug("Publisher: %r. Subscriber is removed: %r.", self, s)
+                logger.debug(
+                    "Publisher: %r. Subscriber is removed: %r.", self, s
+                )
 
-    def notify_subscribers(self, context: EventContextTypeVar) -> list[Exception]:
+    def notify_subscribers(
+        self, context: EventContextTypeVar
+    ) -> list[Exception]:
         errors = []
         for s in self._subscribers:
             try:
@@ -58,7 +64,10 @@ class Publisher(
                 errors.append(err)
             else:
                 logger.debug(
-                    "Publisher: %r. Context: %r. Subscriber: %r. OK.", self, context, s
+                    "Publisher: %r. Context: %r. Subscriber: %r. OK.",
+                    self,
+                    context,
+                    s,
                 )
         return errors
 
@@ -96,9 +105,13 @@ class AsyncPublisher(
             except KeyError:
                 pass
             else:
-                logger.debug("Publisher: %r. Subscriber is removed: %r.", self, s)
+                logger.debug(
+                    "Publisher: %r. Subscriber is removed: %r.", self, s
+                )
 
-    async def notify_subscribers(self, context: EventContextTypeVar) -> list[Exception]:
+    async def notify_subscribers(
+        self, context: EventContextTypeVar
+    ) -> list[Exception]:
         subscribers, coros = [], []
         for s in self._subscribers:
             subscribers.append(s)
@@ -118,7 +131,10 @@ class AsyncPublisher(
                 errors.append(result)
             else:
                 logger.debug(
-                    "Publisher: %r. Context: %r. Subscriber: %r. OK.", self, context, s
+                    "Publisher: %r. Context: %r. Subscriber: %r. OK.",
+                    self,
+                    context,
+                    s,
                 )
 
         return errors

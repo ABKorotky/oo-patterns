@@ -3,8 +3,8 @@ oo\_patterns.behavioral package
 
 .. automodule:: oo_patterns.behavioral
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Subpackages
 -----------
@@ -12,4 +12,5 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   oo_patterns.behavioral.observer
    oo_patterns.behavioral.state

@@ -1,4 +1,4 @@
-# OO Patterns Changelog
+# Ak Oo Patterns Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.9.0] - 2026-02-07
+### Added
+- Add `proxy` attribute to `StateContextInterface` class. See `oo_patterns/behavioral/state/` directory for details.
+### Changed
+- Move `tests` to the root directory. See the root directory for details.
+- Actualize the structure of the project. See the root directory for details.
+- Update python version to `3.13`. See `pyproject.toml` file for details.
+### Removed
+- Remove `init_state` method from `StateInterface` class. See `oo_patterns/behavioral/state/` directory for details.
+
+## [0.8.0] - 2024-11-01
 
 ## [0.7.0] - 2024-10-02
 ### Added

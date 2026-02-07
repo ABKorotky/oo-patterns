@@ -106,7 +106,9 @@ class SubSpacePublisherInterfaceTestCase(TestCase):
 
 
 class AsyncSubSpacePublisherInterfaceTestCase(IsolatedAsyncioTestCase):
-    tst_cls: type["AsyncSubSpacePublisherInterface"] = AsyncSubSpacePublisherInterface
+    tst_cls: type["AsyncSubSpacePublisherInterface"] = (
+        AsyncSubSpacePublisherInterface
+    )
 
     def test_add_subscribers(self):
         tst_obj = self.tst_cls()

@@ -19,7 +19,7 @@ import oo_patterns as package  # noqa
 
 project = package.TITLE
 author = package.AUTHOR
-copyright = f"2024, {author}"
+copyright = f"2024, Aliaksandr Karotki"
 
 # The full version, including alpha/beta/rc tags
 release = ".".join([str(i) for i in package.VERSION])
