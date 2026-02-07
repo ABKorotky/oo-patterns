@@ -1,4 +1,4 @@
-# Ak Oo Patterns
+# OO Patterns
 
 Provides generic functionality for supporting different Programming Patterns in Python projects.
 

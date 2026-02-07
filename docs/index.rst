@@ -1,4 +1,4 @@
-Welcome to OO Patters documentation!
+Welcome to OO Patterns documentation!
 ================================
 
 Provides generic functionality for supporting different Programming Patterns in Python projects
